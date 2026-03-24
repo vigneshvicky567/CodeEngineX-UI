@@ -1,0 +1,5 @@
+# Use `.dockerignore` to avoid copying unnecessary files like node_modules
+node_modules/
+.git/
+.expo/
+__tests__/
