@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, SafeAreaView } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+
+const options = [
+  { id: 0, text: '"Hello"', isCorrect: false },
+  { id: 1, text: '42', isCorrect: false },
+  { id: 2, text: 'true', isCorrect: true },
+  { id: 3, text: '[1, 2]', isCorrect: false },
+];
 
 export default function Screen8() {
   const navigation = useNavigation<any>();
   const [selectedOption, setSelectedOption] = useState<number | null>(2); // pre-selecting Option 3 ("true")
   const [isChecked, setIsChecked] = useState(false);
-
-  const options = [
-    { id: 0, text: '"Hello"', isCorrect: false },
-    { id: 1, text: '42', isCorrect: false },
-    { id: 2, text: 'true', isCorrect: true },
-    { id: 3, text: '[1, 2]', isCorrect: false },
-  ];
 
   const handleCheck = () => {
     if (!isChecked) {
@@ -23,7 +24,7 @@ export default function Screen8() {
     }
   };
 
-  const currentOption = selectedOption !== null ? options[selectedOption] : null;
+  const currentOption = selectedOption !== null ? options.find(opt => opt.id === selectedOption) : null;
   const showSuccess = isChecked && currentOption?.isCorrect;
   const showError = isChecked && !currentOption?.isCorrect;
 

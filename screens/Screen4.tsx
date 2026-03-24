@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Pressable, SafeAreaView, Dimensions } from 'react-native';
+import { View, Text, Pressable, Dimensions } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import Svg, { Rect, Circle, Path } from 'react-native-svg';

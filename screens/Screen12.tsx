@@ -4,12 +4,12 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+const keys = ['{ }', '[ ]', '( )', '=', '" "', "' '", ';', '$'];
+
 export default function Screen12() {
   const navigation = useNavigation<any>();
   const [showConsole, setShowConsole] = useState(false);
   const [code, setCode] = useState('let greeting = "Hello World!";\nconsole.log(greeting);');
-
-  const keys = ['{ }', '[ ]', '( )', '=', '" "', "' '", ';', '$'];
 
   return (
     <SafeAreaView className="flex-1 bg-background-light" edges={['top', 'left', 'right']}>
@@ -68,8 +68,8 @@ export default function Screen12() {
 
         {/* Quick Type Bar */}
         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="bg-surface border-t border-gray-200 py-2 px-2 z-20 flex-row" contentContainerStyle={{ gap: 8 }}>
-          {keys.map((k, i) => (
-            <Pressable key={i} className="bg-surface-alt h-10 min-w-[48px] px-3 rounded-lg items-center justify-center active:translate-y-1" style={{ shadowColor: '#E5E7EB', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 1, shadowRadius: 0 }}>
+          {keys.map((k) => (
+            <Pressable key={k} className="bg-surface-alt h-10 min-w-[48px] px-3 rounded-lg items-center justify-center active:translate-y-1" style={{ shadowColor: '#E5E7EB', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 1, shadowRadius: 0 }}>
               <Text className="text-text-main font-code font-bold">{k}</Text>
             </Pressable>
           ))}
