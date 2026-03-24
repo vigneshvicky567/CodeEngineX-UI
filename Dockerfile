@@ -19,5 +19,5 @@ EXPOSE 19000
 EXPOSE 19001
 EXPOSE 19002
 
-# Start the Expo development server on all interfaces so it's accessible outside the container
-CMD ["npm", "start", "--", "--host", "0.0.0.0"]
+# Start the Expo development server
+CMD ["npm", "start", "--", "--lan"]
