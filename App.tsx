@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AppNavigator from './navigation/AppNavigator';
 import * as Font from 'expo-font';
+import { cssInterop } from 'nativewind';
+import Svg, { Path, Rect, Circle } from 'react-native-svg';
+
+cssInterop(Svg, { className: 'style' });
+cssInterop(Path, { className: 'style' });
+cssInterop(Rect, { className: 'style' });
+cssInterop(Circle, { className: 'style' });
 import {
   Fredoka_400Regular,
   Fredoka_500Medium,
@@ -64,8 +72,10 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <AppNavigator />
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <AppNavigator />
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
