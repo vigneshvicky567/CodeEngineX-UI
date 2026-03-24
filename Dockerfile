@@ -1,5 +1,5 @@
 # Pull base image
-FROM node:20-alpine
+FROM node:20-bullseye-slim
 
 # Set working directory
 WORKDIR /app
@@ -15,9 +15,6 @@ COPY . .
 
 # Expose ports for Expo Go and Web
 EXPOSE 8081
-EXPOSE 19000
-EXPOSE 19001
-EXPOSE 19002
 
 # Start the Expo development server
-CMD ["npm", "start", "--", "--lan"]
+CMD ["npm", "start"]

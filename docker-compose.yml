@@ -4,13 +4,11 @@ services:
     build: .
     ports:
       - "8081:8081"
-      - "19000:19000"
-      - "19001:19001"
-      - "19002:19002"
     volumes:
       - .:/app
       - /app/node_modules
     environment:
       - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
-      - REACT_NATIVE_PACKAGER_HOSTNAME=localhost
-    command: npm start -- --lan
+      - REACT_NATIVE_PACKAGER_HOSTNAME=${HOST_IP:-}
+      - CHOKIDAR_USEPOLLING=true
+    command: npm start
