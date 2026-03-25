@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, ScrollView, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, Pressable, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { CodeEditor } from '../components/Editor/CodeEditor';
 
 const keys = ['{ }', '[ ]', '( )', '=', '" "', "' '", ';', '$'];
 
@@ -64,24 +65,11 @@ export default function Screen12() {
         </View>
 
         {/* Code Editor */}
-        <ScrollView className="flex-1 bg-background-light p-4">
-          <View className="bg-surface rounded-xl p-4 min-h-[400px] flex-row border border-gray-100" style={{ shadowColor: '#4B4B4B', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.08, shadowRadius: 8 }}>
-            {/* Line Numbers */}
-            <View className="w-8 text-right pr-3 border-r border-gray-100 pt-1">
-              {[1,2,3,4,5].map(n => <Text key={n} className="text-muted font-code text-sm leading-relaxed text-right">{n}</Text>)}
-            </View>
-            <TextInput
-              multiline
-              value={code}
-              onChangeText={setCode}
-              className="flex-1 pl-3 pt-1 font-code text-sm leading-relaxed text-text-main"
-              textAlignVertical="top"
-              autoCapitalize="none"
-              autoCorrect={false}
-              spellCheck={false}
-            />
+        <View className="flex-1 bg-background-light p-4">
+          <View className="flex-1 rounded-xl flex-row border border-gray-200 overflow-hidden" style={{ shadowColor: '#4B4B4B', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.08, shadowRadius: 8 }}>
+             <CodeEditor code={code} setCode={setCode} languageId={63} isDark={false} />
           </View>
-        </ScrollView>
+        </View>
 
         {/* Quick Type Bar */}
         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="bg-surface border-t border-gray-200 py-2 px-2 z-20 flex-row" contentContainerStyle={{ gap: 8 }}>
