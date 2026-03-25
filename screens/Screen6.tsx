@@ -4,6 +4,14 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Path } from 'react-native-svg';
+import BottomNavBar, { TabItem } from '../components/BottomNavBar';
+
+const NAV_TABS: TabItem[] = [
+  { name: 'Learn', icon: 'school', route: 'Map' },
+  { name: 'Explore', icon: 'explore', route: 'Explore' },
+  { name: 'Shield', icon: 'verified-user' },
+  { name: 'Profile', icon: 'person', route: 'Progress' },
+];
 
 export default function Screen6() {
   const navigation = useNavigation<any>();

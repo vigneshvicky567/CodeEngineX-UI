@@ -3,6 +3,14 @@ import { View, Text, Pressable, ScrollView, Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import BottomNavBar, { TabItem } from '../components/BottomNavBar';
+
+const NAV_TABS: TabItem[] = [
+  { name: 'Learn', icon: 'school', route: 'Map' },
+  { name: 'Leaderboard', icon: 'leaderboard' },
+  { name: 'Badges', icon: 'military-tech', route: 'Achievements' },
+  { name: 'Profile', icon: 'person', route: 'Progress' },
+];
 
 export default function Screen9() {
   const navigation = useNavigation<any>();
