@@ -107,10 +107,13 @@ export default function Screen4() {
           </Pressable>
 
           {/* Sign Up Link */}
-          <View className="mt-6 pt-4 flex-row justify-center">
+          <Pressable
+            onPress={() => navigation.navigate('PathSelection')}
+            className="mt-6 pt-4 flex-row justify-center active:opacity-70"
+          >
             <Text className="text-sm text-gray-500 font-medium">Don't have an account? </Text>
             <Text className="text-[#1eb1f6] font-bold">Sign Up</Text>
-          </View>
+          </Pressable>
         </View>
 
       </View>

@@ -13,7 +13,7 @@ export default function Screen10() {
       <View className="flex-row items-center justify-between px-6 py-4 w-full bg-[#f2f7ff] z-50">
         <View className="flex-row items-center gap-4">
           <Pressable
-            onPress={() => navigation.navigate('MainTabs')}
+            onPress={() => navigation.navigate('Map')}
             className="w-10 h-10 flex items-center justify-center rounded-xl active:translate-y-1"
           >
             <MaterialIcons name="close" size={24} color="#64748b" />
@@ -83,7 +83,7 @@ export default function Screen10() {
         </View>
 
         <Pressable
-          onPress={() => navigation.navigate('MainTabs')}
+          onPress={() => navigation.navigate('MobileIDE')}
           className="w-full py-5 bg-primary rounded-lg active:scale-95"
           style={{ shadowColor: '#00557a', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 1, shadowRadius: 0 }}
         >

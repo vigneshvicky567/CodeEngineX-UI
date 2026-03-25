@@ -78,7 +78,7 @@ export default function Screen7() {
                 </View>
               </View>
               <Pressable
-                onPress={() => navigation.navigate('MobileIDE')}
+                onPress={() => navigation.navigate('Map')}
                 className="bg-primary px-6 py-3 rounded-xl active:translate-y-1"
                 style={{ shadowColor: '#00557a', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 1, shadowRadius: 0 }}
               >
