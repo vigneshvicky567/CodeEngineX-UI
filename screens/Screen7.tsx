@@ -3,6 +3,14 @@ import { View, Text, Pressable, ScrollView, Image, TextInput } from 'react-nativ
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import BottomNavBar, { TabItem } from '../components/BottomNavBar';
+
+const NAV_TABS: TabItem[] = [
+  { name: 'Learn', icon: 'school', route: 'Map' },
+  { name: 'Explore', icon: 'explore', route: 'Explore' },
+  { name: 'Shield', icon: 'verified-user' },
+  { name: 'Profile', icon: 'person', route: 'Progress' },
+];
 
 export default function Screen7() {
   const navigation = useNavigation<any>();
@@ -172,31 +180,7 @@ export default function Screen7() {
       </Pressable>
 
       {/* BottomNavBar */}
-      <View className="absolute bottom-0 left-0 w-full z-50 flex-row justify-around items-center px-4 pb-6 pt-3 bg-white rounded-t-[2.5rem] border-t-4 border-[#d9eaff]">
-        <Pressable
-          onPress={() => navigation.navigate('Map')}
-          className="flex-col items-center justify-center px-5 py-2"
-        >
-          <MaterialIcons name="school" size={24} color="#94a3b8" />
-          <Text className="font-label font-bold text-[11px] uppercase tracking-wider text-slate-400 mt-1">Learn</Text>
-        </Pressable>
-        {/* Active Nav: Explore */}
-        <Pressable className="flex-col items-center justify-center bg-[#d9eaff] rounded-2xl px-5 py-2 transform scale-110">
-          <MaterialIcons name="explore" size={24} color="#1CB0F6" />
-          <Text className="font-label font-bold text-[11px] uppercase tracking-wider text-[#1CB0F6] mt-1">Explore</Text>
-        </Pressable>
-        <Pressable className="flex-col items-center justify-center px-5 py-2">
-          <MaterialIcons name="verified-user" size={24} color="#94a3b8" />
-          <Text className="font-label font-bold text-[11px] uppercase tracking-wider text-slate-400 mt-1">Shield</Text>
-        </Pressable>
-        <Pressable
-          onPress={() => navigation.navigate('Progress')}
-          className="flex-col items-center justify-center px-5 py-2"
-        >
-          <MaterialIcons name="person" size={24} color="#94a3b8" />
-          <Text className="font-label font-bold text-[11px] uppercase tracking-wider text-slate-400 mt-1">Profile</Text>
-        </Pressable>
-      </View>
+      <BottomNavBar activeTab="Explore" tabs={NAV_TABS} />
     </SafeAreaView>
   );
 }
