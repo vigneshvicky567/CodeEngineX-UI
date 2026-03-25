@@ -83,7 +83,7 @@ export default function Screen10() {
         </View>
 
         <Pressable
-          onPress={() => navigation.navigate('MobileIDE')}
+          onPress={() => navigation.navigate('MainTabs', { screen: 'Map' })}
           className="w-full py-5 bg-primary rounded-lg active:scale-95"
           style={{ shadowColor: '#00557a', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 1, shadowRadius: 0 }}
         >

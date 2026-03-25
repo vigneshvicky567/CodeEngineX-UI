@@ -237,29 +237,39 @@ export default function Screen9() {
         </View>
       </ScrollView>
 
-      {/* BottomNavBar */}
-      <View className="absolute bottom-0 left-0 w-full z-50 flex-row justify-around items-center px-4 pb-6 pt-3 bg-white rounded-t-[2rem] border-t-4 border-slate-100">
+                  {/* BottomNavBar */}
+      <View className="absolute bottom-0 left-0 w-full z-50 flex-row justify-around items-center px-4 pb-6 pt-3 bg-white rounded-t-[2.5rem] border-t-4 border-[#d9eaff]">
+        {/* Nav: Learn */}
         <Pressable
           onPress={() => navigation.navigate('Map')}
           className="flex-col items-center justify-center px-5 py-2 active:scale-95"
         >
-          <MaterialIcons name="school" size={24} color="#64748b" />
-          <Text className="font-label font-bold text-[11px] uppercase tracking-wider text-slate-400 mt-1">Learn</Text>
+          <MaterialIcons name="school" size={24} color="#94a3b8" />
+          <Text className="font-label font-bold text-[11px] uppercase tracking-wider mt-1 text-slate-400">Learn</Text>
         </Pressable>
-        <Pressable className="flex-col items-center justify-center px-5 py-2 active:scale-95">
-          <MaterialIcons name="leaderboard" size={24} color="#64748b" />
-          <Text className="font-label font-bold text-[11px] uppercase tracking-wider text-slate-400 mt-1">Leaderboard</Text>
+        {/* Nav: Explore */}
+        <Pressable
+          onPress={() => navigation.navigate('Explore')}
+          className="flex-col items-center justify-center px-5 py-2 active:scale-95"
+        >
+          <MaterialIcons name="explore" size={24} color="#94a3b8" />
+          <Text className="font-label font-bold text-[11px] uppercase tracking-wider mt-1 text-slate-400">Explore</Text>
         </Pressable>
-        <Pressable className="flex-col items-center justify-center bg-[#d9eaff] rounded-2xl px-5 py-2 border-b-4 border-[#1CB0F6] active:scale-95">
+        {/* Nav: Badges */}
+        <Pressable
+          onPress={() => navigation.navigate('Achievements')}
+          className="flex-col items-center justify-center px-5 py-2 bg-[#d9eaff] rounded-2xl transform scale-110"
+        >
           <MaterialIcons name="military-tech" size={24} color="#1CB0F6" />
-          <Text className="font-label font-bold text-[11px] uppercase tracking-wider text-[#1CB0F6] mt-1">Badges</Text>
+          <Text className="font-label font-bold text-[11px] uppercase tracking-wider mt-1 text-[#1CB0F6]">Badges</Text>
         </Pressable>
+        {/* Nav: Profile */}
         <Pressable
           onPress={() => navigation.navigate('Progress')}
           className="flex-col items-center justify-center px-5 py-2 active:scale-95"
         >
-          <MaterialIcons name="person" size={24} color="#64748b" />
-          <Text className="font-label font-bold text-[11px] uppercase tracking-wider text-slate-400 mt-1">Profile</Text>
+          <MaterialIcons name="person" size={24} color="#94a3b8" />
+          <Text className="font-label font-bold text-[11px] uppercase tracking-wider mt-1 text-slate-400">Profile</Text>
         </Pressable>
       </View>
     </SafeAreaView>

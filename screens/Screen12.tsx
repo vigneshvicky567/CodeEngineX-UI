@@ -76,17 +76,19 @@ export default function Screen12() {
         </ScrollView>
 
         {/* Floating Action Button (Run Code) */}
-        <Pressable
-          onPress={() => setShowConsole(!showConsole)}
-          className="absolute bottom-24 right-6 w-16 h-16 bg-success rounded-full items-center justify-center z-30 active:scale-95"
-          style={{ shadowColor: '#58A700', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 1, shadowRadius: 0 }}
-        >
-          <MaterialIcons name="play-arrow" size={36} color="white" />
-        </Pressable>
+        {!showConsole && (
+          <Pressable
+            onPress={() => setShowConsole(true)}
+            className="absolute bottom-24 right-6 w-16 h-16 bg-success rounded-full items-center justify-center z-30 active:scale-95"
+            style={{ shadowColor: '#58A700', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 1, shadowRadius: 0 }}
+          >
+            <MaterialIcons name="play-arrow" size={36} color="white" />
+          </Pressable>
+        )}
 
         {/* Console Drawer */}
         {showConsole && (
-          <View className="absolute bottom-0 left-0 right-0 h-[200px] bg-console-bg rounded-t-xl z-40" style={{ shadowColor: '#000', shadowOffset: { width: 0, height: -8 }, shadowOpacity: 0.15, shadowRadius: 16 }}>
+          <View className="absolute bottom-0 left-0 right-0 h-[300px] bg-console-bg rounded-t-xl z-40 flex-col pb-8" style={{ shadowColor: '#000', shadowOffset: { width: 0, height: -8 }, shadowOpacity: 0.15, shadowRadius: 16 }}>
             <View className="w-full items-center py-2">
               <View className="w-12 h-1.5 bg-gray-600 rounded-full" />
             </View>
@@ -102,6 +104,14 @@ export default function Screen12() {
                 <Text className="text-success font-code">Hello World!</Text>
               </View>
             </ScrollView>
+            <View className="px-4 mt-2">
+              <Pressable
+                onPress={() => navigation.navigate('LessonComplete')}
+                className="w-full py-4 bg-success rounded-lg active:scale-95 flex-row items-center justify-center"
+              >
+                <Text className="text-white text-center font-bold text-lg tracking-wide uppercase">Continue</Text>
+              </Pressable>
+            </View>
           </View>
         )}
       </KeyboardAvoidingView>
