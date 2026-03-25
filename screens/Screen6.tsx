@@ -16,6 +16,25 @@ const NAV_TABS: TabItem[] = [
 export default function Screen6() {
   const navigation = useNavigation<any>();
 
+  // BACKEND: GET /api/user/progress/map
+  // Endpoint to fetch the user's current progress on the learning map.
+  // Response: {
+  //   stats: { gems: number, streak: number },
+  //   nodes: Array<{ id: string, type: string, status: 'completed' | 'active' | 'locked', label: string }>
+  // }
+  /*
+  useEffect(() => {
+    // try {
+    //   const data = await axios.get('/api/user/progress/map');
+    //   setMapData(data);
+    // } catch (e) { ... }
+  }, []);
+  */
+
+  const handleStartLevel = () => {
+    navigation.navigate('LessonIntro');
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-background pb-24">
       {/* TopAppBar */}
@@ -98,7 +117,7 @@ export default function Screen6() {
           <View className="relative z-20 my-4">
             <View className="absolute inset-0 bg-primary-container/40 rounded-full scale-150" />
             <Pressable
-              onPress={() => navigation.navigate('LessonIntro')}
+              onPress={handleStartLevel}
               className="w-24 h-24 bg-primary rounded-full flex items-center justify-center active:scale-95"
               style={{
                 shadowColor: '#00557a',
@@ -164,8 +183,41 @@ export default function Screen6() {
         </View>
       </ScrollView>
 
-      {/* BottomNavBar */}
-      <BottomNavBar activeTab="Learn" tabs={NAV_TABS} />
+                  {/* BottomNavBar */}
+      <View className="absolute bottom-0 left-0 w-full z-50 flex-row justify-around items-center px-4 pb-6 pt-3 bg-white rounded-t-[2.5rem] border-t-4 border-[#d9eaff]">
+        {/* Nav: Learn */}
+        <Pressable
+          onPress={() => navigation.navigate('Map')}
+          className="flex-col items-center justify-center px-5 py-2 bg-[#d9eaff] rounded-2xl transform scale-110"
+        >
+          <MaterialIcons name="school" size={24} color="#1CB0F6" />
+          <Text className="font-label font-bold text-[11px] uppercase tracking-wider mt-1 text-[#1CB0F6]">Learn</Text>
+        </Pressable>
+        {/* Nav: Explore */}
+        <Pressable
+          onPress={() => navigation.navigate('Explore')}
+          className="flex-col items-center justify-center px-5 py-2 active:scale-95"
+        >
+          <MaterialIcons name="explore" size={24} color="#94a3b8" />
+          <Text className="font-label font-bold text-[11px] uppercase tracking-wider mt-1 text-slate-400">Explore</Text>
+        </Pressable>
+        {/* Nav: Badges */}
+        <Pressable
+          onPress={() => navigation.navigate('Achievements')}
+          className="flex-col items-center justify-center px-5 py-2 active:scale-95"
+        >
+          <MaterialIcons name="military-tech" size={24} color="#94a3b8" />
+          <Text className="font-label font-bold text-[11px] uppercase tracking-wider mt-1 text-slate-400">Badges</Text>
+        </Pressable>
+        {/* Nav: Profile */}
+        <Pressable
+          onPress={() => navigation.navigate('Progress')}
+          className="flex-col items-center justify-center px-5 py-2 active:scale-95"
+        >
+          <MaterialIcons name="person" size={24} color="#94a3b8" />
+          <Text className="font-label font-bold text-[11px] uppercase tracking-wider mt-1 text-slate-400">Profile</Text>
+        </Pressable>
+      </View>
     </SafeAreaView>
   );
 }

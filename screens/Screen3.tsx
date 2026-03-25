@@ -15,6 +15,18 @@ export default function Screen3() {
   const navigation = useNavigation<any>();
   const [selected, setSelected] = useState<string | null>('Regular');
 
+  // BACKEND: POST /api/user/goal
+  // Endpoint to save the user's daily goal during onboarding.
+  // Request body: { userId: string, dailyGoalId: string }
+  // Response: { success: boolean, updatedUser: object }
+  const handleStart = () => {
+    // BACKEND INTEGRATION POINT:
+    // try {
+    //   await axios.post('/api/user/goal', { dailyGoalId: selected });
+    // } catch (e) { ... }
+    navigation.navigate('MainTabs');
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-background">
       {/* Top Navigation Anchor */}
@@ -125,7 +137,7 @@ export default function Screen3() {
       {/* Footer Action */}
       <View className="absolute bottom-0 left-0 right-0 p-6 bg-white/70 flex-row justify-center z-50">
         <Pressable
-          onPress={() => navigation.navigate('MainTabs')}
+          onPress={handleStart}
           className="w-full max-w-md bg-primary py-5 rounded-lg active:translate-y-1 flex-row items-center justify-center gap-3"
           style={{
             shadowColor: '#00557a',

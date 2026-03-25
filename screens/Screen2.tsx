@@ -14,6 +14,18 @@ export default function Screen2() {
   const navigation = useNavigation<any>();
   const [selected, setSelected] = useState<string | null>('I know some');
 
+  // BACKEND: POST /api/user/experience
+  // Endpoint to save the user's selected experience level during onboarding.
+  // Request body: { userId: string, experienceLevel: string }
+  // Response: { success: boolean, updatedUser: object }
+  const handleContinue = () => {
+    // BACKEND INTEGRATION POINT:
+    // try {
+    //   await axios.post('/api/user/experience', { experienceLevel: selected });
+    // } catch (e) { ... }
+    navigation.navigate('GoalSetting');
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-surface">
       {/* Top AppBar */}
@@ -98,7 +110,7 @@ export default function Screen2() {
       <View className="absolute bottom-0 left-0 right-0 p-6 bg-surface/80 border-t-2 border-surface-container-high z-40">
         <View className="max-w-2xl mx-auto flex-col md:flex-row gap-4 items-center">
           <Pressable
-            onPress={() => navigation.navigate('GoalSetting')}
+            onPress={handleContinue}
             className="w-full py-5 bg-primary rounded-lg active:translate-y-1"
             style={{
               shadowColor: '#00557a',

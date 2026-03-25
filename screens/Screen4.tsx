@@ -10,6 +10,27 @@ const { height } = Dimensions.get('window');
 export default function Screen4() {
   const navigation = useNavigation<any>();
 
+  // BACKEND: POST /api/auth/login
+  // Endpoint to authenticate an existing user.
+  // Request body: { username/email, password }
+  // Response: { token: string, user: object }
+  const handleLogin = () => {
+    // BACKEND INTEGRATION POINT:
+    // try {
+    //   const res = await axios.post('/api/auth/login', credentials);
+    //   saveToken(res.data.token);
+    // } catch (e) { ... }
+    navigation.navigate('MainTabs');
+  };
+
+  // BACKEND: POST /api/auth/register
+  // Endpoint to register a new user.
+  // Request body: { username, email, password }
+  // Response: { token: string, user: object }
+  const handleSignUp = () => {
+    navigation.navigate('PathSelection');
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-[#ffffff] items-center justify-center p-6 sm:p-8 relative overflow-hidden">
       <View className="w-full max-w-md mx-auto flex-col items-center justify-between h-full z-10" style={{ minHeight: height * 0.8 }}>
@@ -46,7 +67,7 @@ export default function Screen4() {
 
           {/* Primary Login Button */}
           <Pressable
-            onPress={() => navigation.navigate('MainTabs')}
+            onPress={handleLogin}
             className="w-full h-14 bg-[#1eb1f6] rounded-full flex-row items-center justify-center active:bg-[#1899D6] active:translate-y-1"
             style={{
               shadowColor: '#1899D6',
@@ -109,7 +130,7 @@ export default function Screen4() {
 
           {/* Sign Up Link */}
           <Pressable
-            onPress={() => navigation.navigate('PathSelection')}
+            onPress={handleSignUp}
             className="mt-6 pt-4 flex-row justify-center active:opacity-70"
           >
             <Text className="text-sm text-gray-500 font-medium">Don't have an account? </Text>

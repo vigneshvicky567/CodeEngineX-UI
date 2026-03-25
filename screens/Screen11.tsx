@@ -16,6 +16,25 @@ const NAV_TABS: TabItem[] = [
 export default function Screen11() {
   const navigation = useNavigation<any>();
 
+  // BACKEND: GET /api/user/stats
+  // Endpoint to fetch the user's detailed progress statistics.
+  // Response: {
+  //   streak: number,
+  //   progressPercent: number,
+  //   hoursCoded: number,
+  //   lessonsDone: number,
+  //   recentActivity: Array<{ title: string, time: string, xp: number, type: string }>,
+  //   nextLesson: { title: string, desc: string, id: string }
+  // }
+  /*
+  useEffect(() => {
+    // try {
+    //   const data = await axios.get('/api/user/stats');
+    //   setStatsData(data);
+    // } catch (e) { ... }
+  }, []);
+  */
+
   return (
     <SafeAreaView className="flex-1 bg-background pb-24">
       {/* TopAppBar */}
@@ -155,12 +174,41 @@ export default function Screen11() {
         </View>
       </ScrollView>
 
-      {/* BottomNavBar */}
-      <BottomNavBar
-        activeTab="Profile"
-        tabs={NAV_TABS}
-        containerClassName="bg-white border-t-4 border-[#e0f2fe]"
-      />
+                  {/* BottomNavBar */}
+      <View className="absolute bottom-0 left-0 w-full z-50 flex-row justify-around items-center px-4 pb-6 pt-3 bg-white rounded-t-[2.5rem] border-t-4 border-[#d9eaff]">
+        {/* Nav: Learn */}
+        <Pressable
+          onPress={() => navigation.navigate('Map')}
+          className="flex-col items-center justify-center px-5 py-2 active:scale-95"
+        >
+          <MaterialIcons name="school" size={24} color="#94a3b8" />
+          <Text className="font-label font-bold text-[11px] uppercase tracking-wider mt-1 text-slate-400">Learn</Text>
+        </Pressable>
+        {/* Nav: Explore */}
+        <Pressable
+          onPress={() => navigation.navigate('Explore')}
+          className="flex-col items-center justify-center px-5 py-2 active:scale-95"
+        >
+          <MaterialIcons name="explore" size={24} color="#94a3b8" />
+          <Text className="font-label font-bold text-[11px] uppercase tracking-wider mt-1 text-slate-400">Explore</Text>
+        </Pressable>
+        {/* Nav: Badges */}
+        <Pressable
+          onPress={() => navigation.navigate('Achievements')}
+          className="flex-col items-center justify-center px-5 py-2 active:scale-95"
+        >
+          <MaterialIcons name="military-tech" size={24} color="#94a3b8" />
+          <Text className="font-label font-bold text-[11px] uppercase tracking-wider mt-1 text-slate-400">Badges</Text>
+        </Pressable>
+        {/* Nav: Profile */}
+        <Pressable
+          onPress={() => navigation.navigate('Progress')}
+          className="flex-col items-center justify-center px-5 py-2 bg-[#d9eaff] rounded-2xl transform scale-110"
+        >
+          <MaterialIcons name="person" size={24} color="#1CB0F6" />
+          <Text className="font-label font-bold text-[11px] uppercase tracking-wider mt-1 text-[#1CB0F6]">Profile</Text>
+        </Pressable>
+      </View>
     </SafeAreaView>
   );
 }
