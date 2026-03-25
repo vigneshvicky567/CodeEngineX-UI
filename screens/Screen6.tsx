@@ -4,6 +4,14 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Path } from 'react-native-svg';
+import BottomNavBar, { TabItem } from '../components/BottomNavBar';
+
+const NAV_TABS: TabItem[] = [
+  { name: 'Learn', icon: 'school', route: 'Map' },
+  { name: 'Explore', icon: 'explore', route: 'Explore' },
+  { name: 'Shield', icon: 'verified-user' },
+  { name: 'Profile', icon: 'person', route: 'Progress' },
+];
 
 export default function Screen6() {
   const navigation = useNavigation<any>();
@@ -157,34 +165,7 @@ export default function Screen6() {
       </ScrollView>
 
       {/* BottomNavBar */}
-      <View className="absolute bottom-0 left-0 w-full z-50 flex-row justify-around items-center px-4 pb-6 pt-3 bg-white rounded-t-[2.5rem] border-t-4 border-[#d9eaff]">
-        {/* Active Nav: Learn */}
-        <Pressable className="flex-col items-center justify-center bg-[#d9eaff] rounded-2xl px-5 py-2 transform scale-110">
-          <MaterialIcons name="school" size={24} color="#1CB0F6" />
-          <Text className="font-label font-bold text-[11px] uppercase tracking-wider text-[#1CB0F6] mt-1">Learn</Text>
-        </Pressable>
-        {/* Inactive Nav: Explore */}
-        <Pressable
-          onPress={() => navigation.navigate('Explore')}
-          className="flex-col items-center justify-center px-5 py-2"
-        >
-          <MaterialIcons name="explore" size={24} color="#94a3b8" />
-          <Text className="font-label font-bold text-[11px] uppercase tracking-wider text-slate-400 mt-1">Explore</Text>
-        </Pressable>
-        {/* Inactive Nav: Shield */}
-        <Pressable className="flex-col items-center justify-center px-5 py-2">
-          <MaterialIcons name="verified-user" size={24} color="#94a3b8" />
-          <Text className="font-label font-bold text-[11px] uppercase tracking-wider text-slate-400 mt-1">Shield</Text>
-        </Pressable>
-        {/* Inactive Nav: Profile */}
-        <Pressable
-          onPress={() => navigation.navigate('Progress')}
-          className="flex-col items-center justify-center px-5 py-2"
-        >
-          <MaterialIcons name="person" size={24} color="#94a3b8" />
-          <Text className="font-label font-bold text-[11px] uppercase tracking-wider text-slate-400 mt-1">Profile</Text>
-        </Pressable>
-      </View>
+      <BottomNavBar activeTab="Learn" tabs={NAV_TABS} />
     </SafeAreaView>
   );
 }
