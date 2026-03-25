@@ -4,15 +4,15 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+const options = [
+  { id: 'Brand New', icon: 'local-florist', title: 'Brand New', desc: "I've never written a line of code.", color: 'bg-secondary-container', iconColor: 'text-on-secondary-container' },
+  { id: 'I know some', icon: 'auto-awesome', title: 'I know some', desc: "I've played around with a few tutorials.", color: 'bg-primary-container', iconColor: 'text-on-primary-container' },
+  { id: 'I\'m a pro', icon: 'rocket', title: 'I\'m a pro', desc: "I've built apps or projects before.", color: 'bg-tertiary-container', iconColor: 'text-on-tertiary-container' },
+];
+
 export default function Screen2() {
   const navigation = useNavigation<any>();
   const [selected, setSelected] = useState<string | null>('I know some');
-
-  const options = [
-    { id: 'Brand New', icon: 'local-florist', title: 'Brand New', desc: "I've never written a line of code.", color: 'bg-secondary-container', iconColor: 'text-on-secondary-container' },
-    { id: 'I know some', icon: 'auto-awesome', title: 'I know some', desc: "I've played around with a few tutorials.", color: 'bg-primary-container', iconColor: 'text-on-primary-container' },
-    { id: 'I\'m a pro', icon: 'rocket', title: 'I\'m a pro', desc: "I've built apps or projects before.", color: 'bg-tertiary-container', iconColor: 'text-on-tertiary-container' },
-  ];
 
   return (
     <SafeAreaView className="flex-1 bg-surface">

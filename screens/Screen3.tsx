@@ -4,16 +4,16 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+const options = [
+  { id: 'Casual', icon: 'local-florist', title: 'Casual', desc: '5 mins / day', iconColor: '#00628c' },
+  { id: 'Regular', icon: 'grass', title: 'Regular', desc: '10 mins / day', iconColor: '#00628c', badge: 'Popular' },
+  { id: 'Serious', icon: 'forest', title: 'Serious', desc: '15 mins / day', iconColor: '#00628c' },
+  { id: 'Insane', icon: 'local-fire-department', title: 'Insane', desc: '30 mins / day', iconColor: '#00628c' },
+];
+
 export default function Screen3() {
   const navigation = useNavigation<any>();
   const [selected, setSelected] = useState<string | null>('Regular');
-
-  const options = [
-    { id: 'Casual', icon: 'local-florist', title: 'Casual', desc: '5 mins / day', iconColor: '#00628c' },
-    { id: 'Regular', icon: 'grass', title: 'Regular', desc: '10 mins / day', iconColor: '#00628c', badge: 'Popular' },
-    { id: 'Serious', icon: 'forest', title: 'Serious', desc: '15 mins / day', iconColor: '#00628c' },
-    { id: 'Insane', icon: 'local-fire-department', title: 'Insane', desc: '30 mins / day', iconColor: '#00628c' },
-  ];
 
   return (
     <SafeAreaView className="flex-1 bg-background">
@@ -125,7 +125,7 @@ export default function Screen3() {
       {/* Footer Action */}
       <View className="absolute bottom-0 left-0 right-0 p-6 bg-white/70 flex-row justify-center z-50">
         <Pressable
-          onPress={() => navigation.navigate('Auth')}
+          onPress={() => navigation.navigate('MainTabs')}
           className="w-full max-w-md bg-primary py-5 rounded-lg active:translate-y-1 flex-row items-center justify-center gap-3"
           style={{
             shadowColor: '#00557a',

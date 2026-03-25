@@ -94,8 +94,8 @@ export default function Screen9() {
                 { icon: 'security', title: 'Guardian' },
                 { icon: 'hub', title: 'Architect' },
                 { icon: 'rocket-launch', title: 'Innovator' }
-              ].map((badge, index) => (
-                <View key={index} className="flex-col items-center gap-2 w-[70px] opacity-50">
+              ].map((badge) => (
+                <View key={badge.title} className="flex-col items-center gap-2 w-[70px] opacity-50">
                   <View className="w-16 h-16 bg-surface-container-highest rounded-full flex items-center justify-center border-b-4 border-outline-variant relative">
                     <MaterialIcons name={badge.icon as any} size={32} color="#5a7a9a" />
                     <View className="absolute -top-1 -right-1 bg-on-surface rounded-full p-1 border-2 border-white">

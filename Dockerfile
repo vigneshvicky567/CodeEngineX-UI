@@ -1,20 +1,30 @@
-# Pull base image
-FROM node:20-bullseye-slim
+FROM node:22
 
-# Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+# Copy package file only to ensure fresh resolution in Linux environment
+COPY package.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --legacy-peer-deps
 
-# Copy the rest of the application code
+# Ensure Expo SDK alignment inside the container
+RUN npx expo install --fix
+
+# Install serve for static hosting
+RUN npm install -g serve
+
+# Copy source code
 COPY . .
 
-# Expose ports for Expo Go and Web
+# Set API URL for build
+ENV EXPO_PUBLIC_API_URL=http://localhost:8000
+
+# Build web app
+RUN npx expo export --platform web
+
+# Expose port
 EXPOSE 8081
 
-# Start the Expo development server
-CMD ["npm", "start"]
+# Serve the built app
+CMD ["serve", "-s", "dist", "-l", "8081"]

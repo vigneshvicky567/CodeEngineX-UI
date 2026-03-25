@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Pressable, SafeAreaView, Dimensions } from 'react-native';
+import { View, Text, Pressable, Dimensions } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import Svg, { Rect, Circle, Path } from 'react-native-svg';
@@ -107,10 +108,13 @@ export default function Screen4() {
           </Pressable>
 
           {/* Sign Up Link */}
-          <View className="mt-6 pt-4 flex-row justify-center">
+          <Pressable
+            onPress={() => navigation.navigate('PathSelection')}
+            className="mt-6 pt-4 flex-row justify-center active:opacity-70"
+          >
             <Text className="text-sm text-gray-500 font-medium">Don't have an account? </Text>
             <Text className="text-[#1eb1f6] font-bold">Sign Up</Text>
-          </View>
+          </Pressable>
         </View>
 
       </View>
