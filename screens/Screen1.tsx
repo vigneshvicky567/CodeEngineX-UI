@@ -4,18 +4,18 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+const options = [
+  { id: 'Python', icon: 'code', label: 'Python' },
+  { id: 'Web Dev', icon: 'language', label: 'Web Dev' },
+  { id: 'Mobile Apps', icon: 'smartphone', label: 'Mobile Apps' },
+  { id: 'Game Dev', icon: 'sports-esports', label: 'Game Dev' },
+  { id: 'Data Science', icon: 'monitoring', label: 'Data Science' },
+  { id: 'AI', icon: 'psychology', label: 'AI' },
+];
+
 export default function Screen1() {
   const navigation = useNavigation<any>();
   const [selected, setSelected] = useState<string | null>('Web Dev');
-
-  const options = [
-    { id: 'Python', icon: 'code', label: 'Python' },
-    { id: 'Web Dev', icon: 'language', label: 'Web Dev' },
-    { id: 'Mobile Apps', icon: 'smartphone', label: 'Mobile Apps' },
-    { id: 'Game Dev', icon: 'sports-esports', label: 'Game Dev' },
-    { id: 'Data Science', icon: 'monitoring', label: 'Data Science' },
-    { id: 'AI', icon: 'psychology', label: 'AI' },
-  ];
 
   return (
     <SafeAreaView className="flex-1 bg-[#f2f7ff]">
