@@ -1,15 +1,9 @@
-version: '3.8'
 services:
   app:
     build: .
     ports:
       - "8081:8081"
-      - "19000:19000"
-      - "19001:19001"
-      - "19002:19002"
-    volumes:
-      - .:/app
-      - /app/node_modules
     environment:
-      - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
-    command: npm start -- --lan
+      - EXPO_PUBLIC_API_URL=http://localhost:8000
+    # Removed volume mounting to ensure we serve the built assets from the container's image
+    # and removed command override to use the Dockerfile's CMD
