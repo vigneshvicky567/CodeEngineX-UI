@@ -29,8 +29,8 @@ function MainTabNavigator() {
         tabBarStyle: { display: 'none' }, // We will use custom tab bars in the screens
       }}
     >
-      <Tab.Screen name="Map" component={Screen6} />
       <Tab.Screen name="Explore" component={Screen7} />
+      <Tab.Screen name="Map" component={Screen6} />
       <Tab.Screen name="Achievements" component={Screen9} />
       <Tab.Screen name="Progress" component={Screen11} />
     </Tab.Navigator>

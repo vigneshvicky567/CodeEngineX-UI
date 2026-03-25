@@ -125,7 +125,7 @@ export default function Screen3() {
       {/* Footer Action */}
       <View className="absolute bottom-0 left-0 right-0 p-6 bg-white/70 flex-row justify-center z-50">
         <Pressable
-          onPress={() => navigation.navigate('Auth')}
+          onPress={() => navigation.navigate('MainTabs')}
           className="w-full max-w-md bg-primary py-5 rounded-lg active:translate-y-1 flex-row items-center justify-center gap-3"
           style={{
             shadowColor: '#00557a',
