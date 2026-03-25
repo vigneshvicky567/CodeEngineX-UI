@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, ScrollView, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, Pressable, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { CodeEditor } from '../components/Editor/CodeEditor';
 
 const keys = ['{ }', '[ ]', '( )', '=', '" "', "' '", ';', '$'];
 
@@ -10,6 +11,23 @@ export default function Screen12() {
   const navigation = useNavigation<any>();
   const [showConsole, setShowConsole] = useState(false);
   const [code, setCode] = useState('let greeting = "Hello World!";\nconsole.log(greeting);');
+  const [output, setOutput] = useState('Hello World!');
+
+  // BACKEND: POST /api/code/execute
+  // Endpoint to safely compile/execute user code within a secure backend sandbox (e.g., using Docker or a serverless function).
+  // Request body: { userId: string, code: string, language: 'javascript' | 'python' | etc. }
+  // Response: { output: string, error: string | null, isCorrect: boolean }
+  const handleRunCode = () => {
+    // BACKEND INTEGRATION POINT:
+    // try {
+    //   const res = await axios.post('/api/code/execute', { code, language: 'javascript' });
+    //   setOutput(res.data.output || res.data.error);
+    //   if (res.data.isCorrect) {
+    //      // Handle success
+    //   }
+    // } catch (e) { ... }
+    setShowConsole(true);
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-background-light" edges={['top', 'left', 'right']}>
@@ -47,24 +65,11 @@ export default function Screen12() {
         </View>
 
         {/* Code Editor */}
-        <ScrollView className="flex-1 bg-background-light p-4">
-          <View className="bg-surface rounded-xl p-4 min-h-[400px] flex-row border border-gray-100" style={{ shadowColor: '#4B4B4B', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.08, shadowRadius: 8 }}>
-            {/* Line Numbers */}
-            <View className="w-8 text-right pr-3 border-r border-gray-100 pt-1">
-              {[1,2,3,4,5].map(n => <Text key={n} className="text-muted font-code text-sm leading-relaxed text-right">{n}</Text>)}
-            </View>
-            <TextInput
-              multiline
-              value={code}
-              onChangeText={setCode}
-              className="flex-1 pl-3 pt-1 font-code text-sm leading-relaxed text-text-main"
-              textAlignVertical="top"
-              autoCapitalize="none"
-              autoCorrect={false}
-              spellCheck={false}
-            />
+        <View className="flex-1 bg-background-light p-4">
+          <View className="flex-1 rounded-xl flex-row border border-gray-200 overflow-hidden" style={{ shadowColor: '#4B4B4B', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.08, shadowRadius: 8 }}>
+             <CodeEditor code={code} setCode={setCode} languageId={63} isDark={false} />
           </View>
-        </ScrollView>
+        </View>
 
         {/* Quick Type Bar */}
         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="bg-surface border-t border-gray-200 py-2 px-2 z-20 flex-row" contentContainerStyle={{ gap: 8 }}>
@@ -76,17 +81,19 @@ export default function Screen12() {
         </ScrollView>
 
         {/* Floating Action Button (Run Code) */}
-        <Pressable
-          onPress={() => setShowConsole(!showConsole)}
-          className="absolute bottom-24 right-6 w-16 h-16 bg-success rounded-full items-center justify-center z-30 active:scale-95"
-          style={{ shadowColor: '#58A700', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 1, shadowRadius: 0 }}
-        >
-          <MaterialIcons name="play-arrow" size={36} color="white" />
-        </Pressable>
+        {!showConsole && (
+          <Pressable
+            onPress={handleRunCode}
+            className="absolute bottom-24 right-6 w-16 h-16 bg-success rounded-full items-center justify-center z-30 active:scale-95"
+            style={{ shadowColor: '#58A700', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 1, shadowRadius: 0 }}
+          >
+            <MaterialIcons name="play-arrow" size={36} color="white" />
+          </Pressable>
+        )}
 
         {/* Console Drawer */}
         {showConsole && (
-          <View className="absolute bottom-0 left-0 right-0 h-[200px] bg-console-bg rounded-t-xl z-40" style={{ shadowColor: '#000', shadowOffset: { width: 0, height: -8 }, shadowOpacity: 0.15, shadowRadius: 16 }}>
+          <View className="absolute bottom-0 left-0 right-0 h-[300px] bg-console-bg rounded-t-xl z-40 flex-col pb-8" style={{ shadowColor: '#000', shadowOffset: { width: 0, height: -8 }, shadowOpacity: 0.15, shadowRadius: 16 }}>
             <View className="w-full items-center py-2">
               <View className="w-12 h-1.5 bg-gray-600 rounded-full" />
             </View>
@@ -99,9 +106,17 @@ export default function Screen12() {
             <ScrollView className="flex-1 p-4">
               <View className="flex-row items-start gap-2 mb-1">
                 <Text className="text-gray-500 font-code">&gt;</Text>
-                <Text className="text-success font-code">Hello World!</Text>
+                <Text className="text-success font-code">{output}</Text>
               </View>
             </ScrollView>
+            <View className="px-4 mt-2">
+              <Pressable
+                onPress={() => navigation.navigate('LessonComplete')}
+                className="w-full py-4 bg-success rounded-lg active:scale-95 flex-row items-center justify-center"
+              >
+                <Text className="text-white text-center font-bold text-lg tracking-wide uppercase">Continue</Text>
+              </Pressable>
+            </View>
           </View>
         )}
       </KeyboardAvoidingView>
