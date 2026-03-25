@@ -20,7 +20,7 @@ export default function Screen8() {
     if (!isChecked) {
       setIsChecked(true);
     } else {
-        navigation.navigate('LessonComplete');
+        navigation.navigate('MobileIDE');
     }
   };
 
