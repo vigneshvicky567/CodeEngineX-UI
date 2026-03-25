@@ -10,6 +10,23 @@ export default function Screen12() {
   const navigation = useNavigation<any>();
   const [showConsole, setShowConsole] = useState(false);
   const [code, setCode] = useState('let greeting = "Hello World!";\nconsole.log(greeting);');
+  const [output, setOutput] = useState('Hello World!');
+
+  // BACKEND: POST /api/code/execute
+  // Endpoint to safely compile/execute user code within a secure backend sandbox (e.g., using Docker or a serverless function).
+  // Request body: { userId: string, code: string, language: 'javascript' | 'python' | etc. }
+  // Response: { output: string, error: string | null, isCorrect: boolean }
+  const handleRunCode = () => {
+    // BACKEND INTEGRATION POINT:
+    // try {
+    //   const res = await axios.post('/api/code/execute', { code, language: 'javascript' });
+    //   setOutput(res.data.output || res.data.error);
+    //   if (res.data.isCorrect) {
+    //      // Handle success
+    //   }
+    // } catch (e) { ... }
+    setShowConsole(true);
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-background-light" edges={['top', 'left', 'right']}>
@@ -78,7 +95,7 @@ export default function Screen12() {
         {/* Floating Action Button (Run Code) */}
         {!showConsole && (
           <Pressable
-            onPress={() => setShowConsole(true)}
+            onPress={handleRunCode}
             className="absolute bottom-24 right-6 w-16 h-16 bg-success rounded-full items-center justify-center z-30 active:scale-95"
             style={{ shadowColor: '#58A700', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 1, shadowRadius: 0 }}
           >
@@ -101,7 +118,7 @@ export default function Screen12() {
             <ScrollView className="flex-1 p-4">
               <View className="flex-row items-start gap-2 mb-1">
                 <Text className="text-gray-500 font-code">&gt;</Text>
-                <Text className="text-success font-code">Hello World!</Text>
+                <Text className="text-success font-code">{output}</Text>
               </View>
             </ScrollView>
             <View className="px-4 mt-2">

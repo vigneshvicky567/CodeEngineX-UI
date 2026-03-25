@@ -3,9 +3,39 @@ import { View, Text, Pressable, ScrollView, Image, TextInput } from 'react-nativ
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import BottomNavBar, { TabItem } from '../components/BottomNavBar';
+
+const NAV_TABS: TabItem[] = [
+  { name: 'Learn', icon: 'school', route: 'Map' },
+  { name: 'Explore', icon: 'explore', route: 'Explore' },
+  { name: 'Shield', icon: 'verified-user' },
+  { name: 'Profile', icon: 'person', route: 'Progress' },
+];
 
 export default function Screen7() {
   const navigation = useNavigation<any>();
+
+  // BACKEND: GET /api/courses
+  // Endpoint to fetch available courses and learning paths.
+  // Query params: ?search={searchTerm}&category={categoryId}
+  // Response: {
+  //   courses: Array<{ id: string, title: string, desc: string, icon: string, color: string, users: number }>,
+  //   paths: Array<{ id: string, title: string, coursesCount: number, hoursCount: number, image: string }>
+  // }
+  /*
+  useEffect(() => {
+    // try {
+    //   const data = await axios.get('/api/courses');
+    //   setCoursesData(data);
+    // } catch (e) { ... }
+  }, [searchQuery, activeFilter]);
+  */
+
+  const handleStartCourse = () => {
+    // BACKEND INTEGRATION POINT: POST /api/user/enroll
+    // await axios.post('/api/user/enroll', { courseId });
+    navigation.navigate('Map');
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-surface pb-24">
@@ -78,7 +108,7 @@ export default function Screen7() {
                 </View>
               </View>
               <Pressable
-                onPress={() => navigation.navigate('Map')}
+                onPress={handleStartCourse}
                 className="bg-primary px-6 py-3 rounded-xl active:translate-y-1"
                 style={{ shadowColor: '#00557a', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 1, shadowRadius: 0 }}
               >

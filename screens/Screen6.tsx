@@ -4,9 +4,36 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Path } from 'react-native-svg';
+import BottomNavBar, { TabItem } from '../components/BottomNavBar';
+
+const NAV_TABS: TabItem[] = [
+  { name: 'Learn', icon: 'school', route: 'Map' },
+  { name: 'Explore', icon: 'explore', route: 'Explore' },
+  { name: 'Shield', icon: 'verified-user' },
+  { name: 'Profile', icon: 'person', route: 'Progress' },
+];
 
 export default function Screen6() {
   const navigation = useNavigation<any>();
+
+  // BACKEND: GET /api/user/progress/map
+  // Endpoint to fetch the user's current progress on the learning map.
+  // Response: {
+  //   stats: { gems: number, streak: number },
+  //   nodes: Array<{ id: string, type: string, status: 'completed' | 'active' | 'locked', label: string }>
+  // }
+  /*
+  useEffect(() => {
+    // try {
+    //   const data = await axios.get('/api/user/progress/map');
+    //   setMapData(data);
+    // } catch (e) { ... }
+  }, []);
+  */
+
+  const handleStartLevel = () => {
+    navigation.navigate('LessonIntro');
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-background pb-24">
@@ -90,7 +117,7 @@ export default function Screen6() {
           <View className="relative z-20 my-4">
             <View className="absolute inset-0 bg-primary-container/40 rounded-full scale-150" />
             <Pressable
-              onPress={() => navigation.navigate('LessonIntro')}
+              onPress={handleStartLevel}
               className="w-24 h-24 bg-primary rounded-full flex items-center justify-center active:scale-95"
               style={{
                 shadowColor: '#00557a',

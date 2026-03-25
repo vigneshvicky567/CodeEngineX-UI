@@ -16,8 +16,25 @@ export default function Screen8() {
   const [selectedOption, setSelectedOption] = useState<number | null>(2); // pre-selecting Option 3 ("true")
   const [isChecked, setIsChecked] = useState(false);
 
+  // BACKEND: GET /api/quizzes/{quizId}
+  // Endpoint to fetch quiz questions and options.
+  // Response: { question: string, options: Array<{ id: number, text: string }> }
+  /*
+  useEffect(() => {
+    // const data = await axios.get(`/api/quizzes/${quizId}`);
+    // setQuizData(data);
+  }, []);
+  */
+
+  // BACKEND: POST /api/quizzes/{quizId}/submit
+  // Endpoint to evaluate the selected answer and award XP.
+  // Request body: { userId: string, answerId: number }
+  // Response: { isCorrect: boolean, correctAnswerId: number, xpEarned: number }
   const handleCheck = () => {
     if (!isChecked) {
+      // BACKEND INTEGRATION POINT:
+      // const res = await axios.post(`/api/quizzes/${quizId}/submit`, { answerId: selectedOption });
+      // setIsCorrect(res.data.isCorrect);
       setIsChecked(true);
     } else {
         navigation.navigate('MobileIDE');
@@ -25,8 +42,8 @@ export default function Screen8() {
   };
 
   const currentOption = selectedOption !== null ? options.find(opt => opt.id === selectedOption) : null;
-  const showSuccess = isChecked && currentOption?.isCorrect;
-  const showError = isChecked && !currentOption?.isCorrect;
+  const showSuccess = isChecked && currentOption?.isCorrect; // Update to use backend result state
+  const showError = isChecked && !currentOption?.isCorrect; // Update to use backend result state
 
   return (
     <SafeAreaView className="flex-1 bg-white">

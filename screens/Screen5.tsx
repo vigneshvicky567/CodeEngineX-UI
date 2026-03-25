@@ -7,6 +7,22 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 export default function Screen5() {
   const navigation = useNavigation<any>();
 
+  // BACKEND: GET /api/lessons/{lessonId}
+  // Endpoint to fetch lesson content, video URL, title, and rewards.
+  // Response: { id: string, title: string, videoUrl: string, rewards: { xp: number, badges: string[] }, ... }
+  /*
+  useEffect(() => {
+    // try {
+    //   const data = await axios.get(`/api/lessons/${route.params.lessonId}`);
+    //   setLessonData(data);
+    // } catch (e) { ... }
+  }, []);
+  */
+
+  const handleContinue = () => {
+    navigation.navigate('LessonQuiz');
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-surface pb-24">
       {/* TopAppBar */}
@@ -130,7 +146,7 @@ export default function Screen5() {
         {/* Action Button */}
         <View className="pt-4 mb-8">
           <Pressable
-            onPress={() => navigation.navigate('LessonQuiz')}
+            onPress={handleContinue}
             className="w-full py-5 rounded-lg bg-[#58CC02] flex-row items-center justify-center gap-3 active:translate-y-1"
             style={{
               shadowColor: '#46a302',

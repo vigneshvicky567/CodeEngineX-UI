@@ -3,9 +3,35 @@ import { View, Text, Pressable, ScrollView, Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import BottomNavBar, { TabItem } from '../components/BottomNavBar';
+
+const NAV_TABS: TabItem[] = [
+  { name: 'Learn', icon: 'school', route: 'Map' },
+  { name: 'Leaderboard', icon: 'leaderboard' },
+  { name: 'Badges', icon: 'military-tech', route: 'Achievements' },
+  { name: 'Profile', icon: 'person', route: 'Progress' },
+];
 
 export default function Screen9() {
   const navigation = useNavigation<any>();
+
+  // BACKEND: GET /api/user/achievements
+  // Endpoint to fetch earned badges, recent activity, and milestones.
+  // Response: {
+  //   level: number,
+  //   badges: { earned: Array<{ id: string, name: string, icon: string }>, total: number },
+  //   recentActivity: Array<{ id: string, title: string, time: string, type: string }>,
+  //   milestones: { streak: number, linesCoded: number, firstProject: boolean },
+  //   featuredAchievement: { title: string, desc: string, image: string }
+  // }
+  /*
+  useEffect(() => {
+    // try {
+    //   const data = await axios.get('/api/user/achievements');
+    //   setAchievementsData(data);
+    // } catch (e) { ... }
+  }, []);
+  */
 
   return (
     <SafeAreaView className="flex-1 bg-surface pb-24">
