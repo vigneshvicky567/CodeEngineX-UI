@@ -17,6 +17,18 @@ export default function Screen1() {
   const navigation = useNavigation<any>();
   const [selected, setSelected] = useState<string | null>('Web Dev');
 
+  // BACKEND: POST /api/user/path
+  // Endpoint to save the user's selected learning path (e.g., 'Web Dev') during onboarding.
+  // Request body: { userId: string, selectedPath: string }
+  // Response: { success: boolean, updatedUser: object }
+  const handleContinue = () => {
+    // BACKEND INTEGRATION POINT:
+    // try {
+    //   await axios.post('/api/user/path', { selectedPath: selected });
+    // } catch (e) { ... }
+    navigation.navigate('ExperienceLevel');
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-[#f2f7ff]">
       {/* TopAppBar */}
@@ -103,7 +115,7 @@ export default function Screen1() {
           <Text className="font-label font-bold text-sm uppercase tracking-wider text-[#90b0d3]">Back</Text>
         </Pressable>
         <Pressable
-          onPress={() => navigation.navigate('ExperienceLevel')}
+          onPress={handleContinue}
           className="flex-row items-center justify-center bg-[#1CB0F6] rounded-2xl px-12 py-4 active:translate-y-1"
           style={{
             shadowColor: '#00628c',

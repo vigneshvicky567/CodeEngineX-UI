@@ -7,6 +7,19 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 export default function Screen10() {
   const navigation = useNavigation<any>();
 
+  // BACKEND: POST /api/lessons/{lessonId}/complete
+  // Endpoint to finalize the lesson completion.
+  // Updates user XP, unlocks next nodes, updates daily streak, and syncs leaderboard stats.
+  // Request body: { userId: string, score: number, timeSpent: number }
+  // Response: { success: boolean, totalXp: number, newGems: number, leveledUp: boolean }
+  const handleComplete = () => {
+    // BACKEND INTEGRATION POINT:
+    // try {
+    //   await axios.post(`/api/lessons/${lessonId}/complete`, { score: 100 });
+    // } catch (e) { ... }
+    navigation.navigate('MainTabs', { screen: 'Map' });
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-surface flex-col">
       {/* TopAppBar */}
@@ -83,7 +96,7 @@ export default function Screen10() {
         </View>
 
         <Pressable
-          onPress={() => navigation.navigate('MobileIDE')}
+          onPress={handleComplete}
           className="w-full py-5 bg-primary rounded-lg active:scale-95"
           style={{ shadowColor: '#00557a', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 1, shadowRadius: 0 }}
         >

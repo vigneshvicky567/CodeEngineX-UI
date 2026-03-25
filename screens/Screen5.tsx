@@ -7,6 +7,22 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 export default function Screen5() {
   const navigation = useNavigation<any>();
 
+  // BACKEND: GET /api/lessons/{lessonId}
+  // Endpoint to fetch lesson content, video URL, title, and rewards.
+  // Response: { id: string, title: string, videoUrl: string, rewards: { xp: number, badges: string[] }, ... }
+  /*
+  useEffect(() => {
+    // try {
+    //   const data = await axios.get(`/api/lessons/${route.params.lessonId}`);
+    //   setLessonData(data);
+    // } catch (e) { ... }
+  }, []);
+  */
+
+  const handleContinue = () => {
+    navigation.navigate('LessonQuiz');
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-surface pb-24">
       {/* TopAppBar */}
@@ -130,7 +146,7 @@ export default function Screen5() {
         {/* Action Button */}
         <View className="pt-4 mb-8">
           <Pressable
-            onPress={() => navigation.navigate('LessonQuiz')}
+            onPress={handleContinue}
             className="w-full py-5 rounded-lg bg-[#58CC02] flex-row items-center justify-center gap-3 active:translate-y-1"
             style={{
               shadowColor: '#46a302',
@@ -145,31 +161,6 @@ export default function Screen5() {
           </Pressable>
         </View>
       </ScrollView>
-
-      {/* BottomNavBar */}
-      <View className="absolute bottom-0 left-0 w-full z-50 flex-row justify-around items-center px-6 pb-6 pt-3 bg-white/90 rounded-t-[2rem] border-t-2 border-[#90b0d3]/20">
-        <Pressable className="flex-col items-center justify-center bg-[#1CB0F6] rounded-2xl p-3 transform scale-110 active:scale-95">
-          <MaterialIcons name="home" size={28} color="white" />
-        </Pressable>
-        <Pressable
-          onPress={() => navigation.navigate('MainTabs', { screen: 'Explore' })}
-          className="flex-col items-center justify-center p-3 rounded-2xl active:scale-95"
-        >
-          <MaterialIcons name="code" size={28} color="#90b0d3" />
-        </Pressable>
-        <Pressable
-          onPress={() => navigation.navigate('MainTabs', { screen: 'Achievements' })}
-          className="flex-col items-center justify-center p-3 rounded-2xl active:scale-95"
-        >
-          <MaterialIcons name="emoji-events" size={28} color="#90b0d3" />
-        </Pressable>
-        <Pressable
-          onPress={() => navigation.navigate('MainTabs', { screen: 'Progress' })}
-          className="flex-col items-center justify-center p-3 rounded-2xl active:scale-95"
-        >
-          <MaterialIcons name="person" size={28} color="#90b0d3" />
-        </Pressable>
-      </View>
     </SafeAreaView>
   );
 }
