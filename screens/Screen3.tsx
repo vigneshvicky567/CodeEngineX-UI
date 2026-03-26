@@ -3,6 +3,7 @@ import { View, Text, Pressable, ScrollView, Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import api from '../lib/api';
 
 const options = [
   { id: 'Casual', icon: 'local-florist', title: 'Casual', desc: '5 mins / day', iconColor: '#00628c' },

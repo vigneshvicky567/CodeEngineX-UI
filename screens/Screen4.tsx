@@ -3,24 +3,40 @@ import { View, Text, Pressable, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
+import api from '../lib/api';
+import { useAuthStore } from '../store/authStore';
 import Svg, { Rect, Circle, Path } from 'react-native-svg';
 
 const { height } = Dimensions.get('window');
 
 export default function Screen4() {
+  const login = useAuthStore((state) => state.login);
+  const [isLoading, setIsLoading] = React.useState(false);
   const navigation = useNavigation<any>();
 
   // BACKEND: POST /api/auth/login
   // Endpoint to authenticate an existing user.
   // Request body: { username/email, password }
   // Response: { token: string, user: object }
-  const handleLogin = () => {
-    // BACKEND INTEGRATION POINT:
-    // try {
-    //   const res = await axios.post('/api/auth/login', credentials);
-    //   saveToken(res.data.token);
-    // } catch (e) { ... }
-    navigation.navigate('MainTabs');
+  const handleLogin = async () => {
+    setIsLoading(true);
+    try {
+      // BACKEND INTEGRATION POINT:
+      // const res = await api.post('/api/v1/auth/login', { email: 'test@example.com', password: 'password123' });
+      // await login(res.access_token, res.refresh_token, res.user);
+      await new Promise((resolve) => setTimeout(resolve, 500)); // Simulate loading
+      await login('dummy_token');
+      navigation.navigate('MainTabs');
+    } catch (e: any) {
+      Toast.show({
+        type: 'error',
+        text1: 'Login Failed',
+        text2: e.response?.data?.detail || 'An error occurred during login.',
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // BACKEND: POST /api/auth/register
@@ -68,7 +84,8 @@ export default function Screen4() {
           {/* Primary Login Button */}
           <Pressable
             onPress={handleLogin}
-            className="w-full h-14 bg-[#1eb1f6] rounded-full flex-row items-center justify-center active:bg-[#1899D6] active:translate-y-1"
+            disabled={isLoading}
+            className={`w-full h-14 bg-[#1eb1f6] rounded-full flex-row items-center justify-center active:bg-[#1899D6] active:translate-y-1 ${isLoading ? 'opacity-70' : ''}`}
             style={{
               shadowColor: '#1899D6',
               shadowOffset: { width: 0, height: 4 },
@@ -77,7 +94,7 @@ export default function Screen4() {
               elevation: 0,
             }}
           >
-            <Text className="text-white font-bold text-lg">Log In</Text>
+            <Text className="text-white font-bold text-lg">{isLoading ? 'Loading...' : 'Log In'}</Text>
           </Pressable>
 
           {/* Divider */}
@@ -87,7 +104,7 @@ export default function Screen4() {
             <View className="flex-1 border-t border-gray-200" />
           </View>
 
-          {/* Apple Login Button */}
+          {/* Apple Login Button - COMMENTED OUT AS PER REQUEST
           <Pressable
             className="w-full h-14 bg-white rounded-full border-2 border-gray-200 flex-row items-center justify-center relative active:bg-gray-50 active:translate-y-1"
             style={{
@@ -105,8 +122,9 @@ export default function Screen4() {
             </View>
             <Text className="text-[#4B4B4B] font-bold text-base">Continue with Apple</Text>
           </Pressable>
+          */}
 
-          {/* Google Login Button */}
+          {/* Google Login Button - COMMENTED OUT AS PER REQUEST
           <Pressable
             className="w-full h-14 bg-white rounded-full border-2 border-gray-200 flex-row items-center justify-center relative active:bg-gray-50 active:translate-y-1"
             style={{
@@ -127,6 +145,7 @@ export default function Screen4() {
             </View>
             <Text className="text-[#4B4B4B] font-bold text-base">Continue with Google</Text>
           </Pressable>
+          */}
 
           {/* Sign Up Link */}
           <Pressable
