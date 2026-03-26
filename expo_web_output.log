@@ -1,0 +1,5 @@
+env: load .env
+env: export EXPO_PUBLIC_API_URL EXPO_PUBLIC_GOOGLE_CLIENT_ID
+Starting Metro Bundler
+
+Web ./index.ts ░░░░░░░░░░░░░░░░  0.0% (0/1)

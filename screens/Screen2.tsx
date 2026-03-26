@@ -3,6 +3,7 @@ import { View, Text, Pressable, ScrollView, Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import api from '../lib/api';
 
 const options = [
   { id: 'Brand New', icon: 'local-florist', title: 'Brand New', desc: "I've never written a line of code.", color: 'bg-secondary-container', iconColor: 'text-on-secondary-container' },

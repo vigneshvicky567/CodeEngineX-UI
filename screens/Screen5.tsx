@@ -3,21 +3,42 @@ import { View, Text, Pressable, ScrollView, Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import api from '../lib/api';
+import { useLessonStore } from '../store/lessonStore';
+import { useRoute } from '@react-navigation/native';
 
 export default function Screen5() {
   const navigation = useNavigation<any>();
+  const route = useRoute<any>();
+  const [lessonData, setLessonData] = React.useState<any>(null);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const { currentLessonId, assessmentId } = useLessonStore();
 
-  // BACKEND: GET /api/lessons/{lessonId}
-  // Endpoint to fetch lesson content, video URL, title, and rewards.
-  // Response: { id: string, title: string, videoUrl: string, rewards: { xp: number, badges: string[] }, ... }
-  /*
-  useEffect(() => {
-    // try {
-    //   const data = await axios.get(`/api/lessons/${route.params.lessonId}`);
-    //   setLessonData(data);
-    // } catch (e) { ... }
-  }, []);
-  */
+  React.useEffect(() => {
+    async function loadLesson() {
+      try {
+        const targetId = route.params?.assessmentId || assessmentId;
+        if (!targetId) return;
+
+        // BACKEND INTEGRATION POINT:
+        // const data = await api.get(`/api/v1/grammar/assessments/${targetId}`);
+        // setLessonData(data);
+
+        await new Promise(resolve => setTimeout(resolve, 500));
+        setLessonData({
+          title: "Epic Intro to Python",
+          description: "We're diving into the snake-pit! Learn why Python is the coolest language for beginners and pro hackers alike.",
+          xp: 50,
+          badge: "Snake Charmer"
+        });
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    loadLesson();
+  }, [assessmentId, route.params]);
 
   const handleContinue = () => {
     navigation.navigate('LessonQuiz');
@@ -94,7 +115,7 @@ export default function Screen5() {
                 <Text className="text-primary font-bold text-xs font-label">LEVEL 1</Text>
               </View>
             </View>
-            <Text className="font-headline text-4xl text-on-surface tracking-tight">Epic Intro to Python</Text>
+            <Text className="font-headline text-4xl text-on-surface tracking-tight">{lessonData?.title || '...'}</Text>
           </View>
 
           {/* Bento Description Cards */}
@@ -107,7 +128,7 @@ export default function Screen5() {
                 <Text className="font-headline text-xl text-on-surface">What's in this lesson?</Text>
               </View>
               <Text className="text-on-surface-variant font-body leading-relaxed">
-                We're diving into the snake-pit! Learn why Python is the coolest language for beginners and pro hackers alike.
+                {lessonData?.description || '...'}
               </Text>
             </View>
 
@@ -121,11 +142,11 @@ export default function Screen5() {
               <View className="space-y-2 gap-2">
                 <View className="flex-row items-center gap-2">
                   <Text className="text-tertiary-fixed">✦</Text>
-                  <Text className="text-on-surface-variant text-sm font-medium">50 Experience Points</Text>
+                  <Text className="text-on-surface-variant text-sm font-medium">{lessonData?.xp || 0} Experience Points</Text>
                 </View>
                 <View className="flex-row items-center gap-2">
                   <Text className="text-secondary">✦</Text>
-                  <Text className="text-on-surface-variant text-sm font-medium">"Snake Charmer" Badge</Text>
+                  <Text className="text-on-surface-variant text-sm font-medium">"{lessonData?.badge || 'None'}" Badge</Text>
                 </View>
               </View>
             </View>

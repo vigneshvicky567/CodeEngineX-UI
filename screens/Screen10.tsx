@@ -3,21 +3,45 @@ import { View, Text, Pressable, Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import api from '../lib/api';
+import { useLessonStore } from '../store/lessonStore';
+import { useProgressStore } from '../store/progressStore';
+import { useAuthStore } from '../store/authStore';
 
 export default function Screen10() {
   const navigation = useNavigation<any>();
+  const { currentLessonId, attemptId, clearLesson } = useLessonStore();
+  const { user } = useAuthStore();
+  const { setGems, gems, setStreakData, streak, longestStreak, totalDays, addCompletedNode } = useProgressStore();
+  const [isLoading, setIsLoading] = React.useState(false);
 
-  // BACKEND: POST /api/lessons/{lessonId}/complete
-  // Endpoint to finalize the lesson completion.
-  // Updates user XP, unlocks next nodes, updates daily streak, and syncs leaderboard stats.
-  // Request body: { userId: string, score: number, timeSpent: number }
-  // Response: { success: boolean, totalXp: number, newGems: number, leveledUp: boolean }
-  const handleComplete = () => {
-    // BACKEND INTEGRATION POINT:
-    // try {
-    //   await axios.post(`/api/lessons/${lessonId}/complete`, { score: 100 });
-    // } catch (e) { ... }
-    navigation.navigate('MainTabs', { screen: 'Map' });
+  const handleComplete = async () => {
+    setIsLoading(true);
+    try {
+      // BACKEND INTEGRATION POINT: Finalize lesson and update streak
+      // if (attemptId) {
+      //    await api.post(`/api/v1/.../attempts/${attemptId}/submit`);
+      // }
+      // if (currentLessonId) {
+      //    await api.post(`/api/lessons/${currentLessonId}/complete`);
+      // }
+      // await api.post('/api/v1/streaks/activity', { type: 'lesson_complete' });
+
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      // Update local state
+      setGems(gems + 2);
+      setStreakData(streak + 1, Math.max(longestStreak, streak + 1), totalDays + 1);
+      if (currentLessonId) addCompletedNode(currentLessonId);
+
+      clearLesson();
+      navigation.navigate('MainTabs', { screen: 'Map' });
+    } catch (e) {
+      console.error(e);
+      navigation.navigate('MainTabs', { screen: 'Map' });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -97,7 +121,8 @@ export default function Screen10() {
 
         <Pressable
           onPress={handleComplete}
-          className="w-full py-5 bg-primary rounded-lg active:scale-95"
+          disabled={isLoading}
+          className={`w-full py-5 bg-primary rounded-lg active:scale-95 ${isLoading ? 'opacity-70' : ''}`}
           style={{ shadowColor: '#00557a', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 1, shadowRadius: 0 }}
         >
           <Text className="text-white text-center font-headline font-extrabold text-xl tracking-wide uppercase">CONTINUE</Text>
