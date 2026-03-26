@@ -3,6 +3,14 @@ import { View, Text, Pressable, ScrollView, Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import BottomNavBar, { TabItem } from '../components/BottomNavBar';
+
+const NAV_TABS: TabItem[] = [
+  { name: 'Learn', icon: 'school', route: 'Map' },
+  { name: 'Leaderboard', icon: 'leaderboard' },
+  { name: 'Badges', icon: 'military-tech', route: 'Achievements' },
+  { name: 'Profile', icon: 'person', route: 'Progress' },
+];
 
 export default function Screen9() {
   const navigation = useNavigation<any>();
@@ -255,7 +263,7 @@ export default function Screen9() {
         </View>
       </ScrollView>
 
-                  {/* BottomNavBar */}
+                              {/* BottomNavBar */}
       <View className="absolute bottom-0 left-0 w-full z-50 flex-row justify-around items-center px-4 pb-6 pt-3 bg-white rounded-t-[2.5rem] border-t-4 border-[#d9eaff]">
         {/* Nav: Learn */}
         <Pressable
@@ -287,7 +295,7 @@ export default function Screen9() {
           className="flex-col items-center justify-center px-5 py-2 active:scale-95"
         >
           <MaterialIcons name="person" size={24} color="#94a3b8" />
-          <Text className="font-label font-bold text-[11px] uppercase tracking-wider mt-1 text-slate-400">Profile</Text>
+          <Text className={`font-label font-bold text-[11px] uppercase tracking-wider mt-1 ${'Badges' === 'Profile' ? 'text-[#1CB0F6]' : 'text-slate-400'}`}>Profile</Text>
         </Pressable>
       </View>
     </SafeAreaView>
