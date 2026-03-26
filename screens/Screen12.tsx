@@ -13,7 +13,7 @@ const keys = ['{ }', '[ ]', '( )', '=', '" "', "' '", ';', '$'];
 export default function Screen12() {
   const navigation = useNavigation<any>();
   const [showConsole, setShowConsole] = useState(false);
-  const { code, setCode, output, setOutput } = useEditorStore();
+  const { code, setCode, language, output, setOutput } = useEditorStore();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleRunCode = async () => {
@@ -21,14 +21,18 @@ export default function Screen12() {
     setShowConsole(true);
     setOutput('Running...');
     try {
-      // BACKEND INTEGRATION POINT: Code execution
-      // const res = await api.post('/api/v1/run', { source_code: code, language_id: 63 });
-      // setOutput(res.stdout || res.stderr || 'Execution finished');
-
-      await new Promise(resolve => setTimeout(resolve, 800));
-      setOutput('Hello World!\nExecution finished in 0.02s');
+      const res = await api.post<{ status: string; stdout: string; stderr: string; time_ms: number | null }>('/api/v1/run', {
+        user_id: 1,
+        language: language || 'python',
+        source: code,
+      });
+      const timeInfo = res.time_ms != null ? `\nFinished in ${res.time_ms}ms` : '';
+      setOutput(`[${res.status.toUpperCase()}]\n${res.stdout || res.stderr || 'No output'}${timeInfo}`);
+      if (res.status !== 'accepted') {
+        Toast.show({ type: 'error', text1: res.status.replace(/_/g, ' ').toUpperCase() });
+      }
     } catch (e: any) {
-      setOutput(e.response?.data?.error || 'Execution failed');
+      setOutput(e.response?.data?.detail || 'Execution failed');
       Toast.show({ type: 'error', text1: 'Execution failed' });
     } finally {
       setIsLoading(false);
