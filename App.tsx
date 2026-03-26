@@ -8,9 +8,9 @@ import { cssInterop } from 'nativewind';
 import Svg, { Path, Rect, Circle } from 'react-native-svg';
 
 cssInterop(Svg, { className: 'style' });
-cssInterop(Path, { className: 'style' });
-cssInterop(Rect, { className: 'style' });
-cssInterop(Circle, { className: 'style' });
+cssInterop(Path, { className: { target: 'style' } as any });
+cssInterop(Rect, { className: { target: 'style' } as any });
+cssInterop(Circle, { className: { target: 'style' } as any });
 import {
   Fredoka_400Regular,
   Fredoka_500Medium,
@@ -35,9 +35,13 @@ import {
   FiraCode_500Medium,
 } from '@expo-google-fonts/fira-code';
 import './global.css';
+import { useAuthStore } from './store/authStore';
+import Toast from 'react-native-toast-message';
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
+  const { checkAuth } = useAuthStore();
+  const [isAuthChecked, setIsAuthChecked] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -64,7 +68,9 @@ export default function App() {
         console.warn('Error loading fonts', e);
       } finally {
         if (isMounted) {
+          await checkAuth();
           setFontsLoaded(true);
+          setIsAuthChecked(true);
         }
       }
     }
@@ -74,7 +80,7 @@ export default function App() {
     };
   }, []);
 
-  if (!fontsLoaded) {
+  if (!fontsLoaded || !isAuthChecked) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>Loading...</Text>
@@ -87,6 +93,7 @@ export default function App() {
       <NavigationContainer>
         <AppNavigator />
       </NavigationContainer>
+      <Toast />
     </SafeAreaProvider>
   );
 }

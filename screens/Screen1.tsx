@@ -3,6 +3,8 @@ import { View, Text, Pressable, ScrollView, Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import api from '../lib/api';
+import { useAuthStore } from '../store/authStore';
 
 const options = [
   { id: 'Python', icon: 'code', label: 'Python' },
@@ -16,17 +18,22 @@ const options = [
 export default function Screen1() {
   const navigation = useNavigation<any>();
   const [selected, setSelected] = useState<string | null>('Web Dev');
+  const user = useAuthStore((state) => state.user);
 
   // BACKEND: POST /api/user/path
   // Endpoint to save the user's selected learning path (e.g., 'Web Dev') during onboarding.
   // Request body: { userId: string, selectedPath: string }
   // Response: { success: boolean, updatedUser: object }
-  const handleContinue = () => {
-    // BACKEND INTEGRATION POINT:
-    // try {
-    //   await axios.post('/api/user/path', { selectedPath: selected });
-    // } catch (e) { ... }
-    navigation.navigate('ExperienceLevel');
+  const handleContinue = async () => {
+    try {
+      // BACKEND INTEGRATION POINT:
+      // await api.post('/api/user/path', { selectedPath: selected });
+      await new Promise(resolve => setTimeout(resolve, 300));
+      navigation.navigate('ExperienceLevel');
+    } catch (e) {
+      console.error(e);
+      navigation.navigate('ExperienceLevel');
+    }
   };
 
   return (
