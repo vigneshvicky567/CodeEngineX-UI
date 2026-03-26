@@ -39,3 +39,16 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+editor-backend/venv/
+editor-backend/__pycache__/
+editor-backend/app/__pycache__/
+editor-backend/app/api/__pycache__/
+editor-backend/app/api/v1/__pycache__/
+editor-backend/app/core/__pycache__/
+editor-backend/app/db/__pycache__/
+editor-backend/app/runners/__pycache__/
+editor-backend/app/schemas/__pycache__/
+editor-backend/app/services/__pycache__/
+editor-backend/alembic/versions/__pycache__/
+editor-backend/alembic/__pycache__/
+editor-backend/test.db
