@@ -80,7 +80,7 @@ export default function Screen4() {
             <Text className="text-white font-bold text-lg">Log In</Text>
           </Pressable>
 
-          {/* Divider */}
+          /*{/* Divider */}
           <View className="flex-row items-center py-2">
             <View className="flex-1 border-t border-gray-200" />
             <Text className="mx-4 text-gray-400 font-medium text-sm">or</Text>
@@ -128,6 +128,7 @@ export default function Screen4() {
             <Text className="text-[#4B4B4B] font-bold text-base">Continue with Google</Text>
           </Pressable>
 
+          */
           {/* Sign Up Link */}
           <Pressable
             onPress={handleSignUp}
