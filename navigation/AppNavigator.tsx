@@ -1,3 +1,6 @@
+import { CodeEditorScreen } from '../src/editor-frontend/screens/CodeEditorScreen';
+import { ThemeProvider } from '../src/editor-frontend/theme/ThemeContext';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -37,6 +40,15 @@ function MainTabNavigator() {
   );
 }
 
+
+function EditorScreenWrapper() {
+  return (
+    <ThemeProvider>
+      <CodeEditorScreen />
+    </ThemeProvider>
+  );
+}
+
 export default function AppNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -54,6 +66,7 @@ export default function AppNavigator() {
       <Stack.Screen name="LessonQuiz" component={Screen8} />
       <Stack.Screen name="LessonComplete" component={Screen10} />
       <Stack.Screen name="MobileIDE" component={Screen12} />
+          <Stack.Screen name="CodeEditor" component={EditorScreenWrapper} />
     </Stack.Navigator>
   );
 }
