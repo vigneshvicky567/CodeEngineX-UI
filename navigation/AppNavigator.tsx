@@ -1,3 +1,6 @@
+import { CodeEditorScreen } from '../src/editor-frontend/screens/CodeEditorScreen';
+import { ThemeProvider } from '../src/editor-frontend/theme/ThemeContext';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -40,6 +43,15 @@ function MainTabNavigator() {
   );
 }
 
+
+function EditorScreenWrapper() {
+  return (
+    <ThemeProvider>
+      <CodeEditorScreen />
+    </ThemeProvider>
+  );
+}
+
 export default function AppNavigator() {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   return (
@@ -66,6 +78,7 @@ export default function AppNavigator() {
       <Stack.Screen name="MobileIDE" component={Screen12} />
           <Stack.Screen name="AIChatbot" component={Screen13} />
           <Stack.Screen name="AITutor" component={Screen14} />
+          <Stack.Screen name="CodeEditor" component={EditorScreenWrapper} />
     </Stack.Navigator>
   );
 }

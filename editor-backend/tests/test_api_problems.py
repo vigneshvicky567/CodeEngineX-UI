@@ -44,10 +44,10 @@ class TestGetProblem:
     def test_get_problem_testcase_input_output_hidden(self, client: TestClient, db: Session):
         """input_text and output_text must NOT leak via the GET /problems endpoint."""
         p = make_problem(db, slug="hidden-io-prob")
-        make_testcase(db, problem_id=p.id, ordinal=0, input_text="secret_in", output_text="secret_out", is_hidden=True)
+        make_testcase(db, problem_id=p.id, ordinal=0, input_text="secret_in", output_text="secret_out")
         body = client.get(f"/api/v1/problems/{p.id}").json()
         tc = body["testcases"][0]
-        # assert "input_text" not in tc
+        assert "input_text" not in tc
         assert "output_text" not in tc
 
     def test_get_nonexistent_problem_returns_404(self, client: TestClient):

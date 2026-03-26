@@ -60,19 +60,19 @@ class TestDockerRunner:
         assert isinstance(runner, DockerRunner)
 
     def test_prepare_raises_not_implemented(self, runner: DockerRunner):
-        # with pytest.raises(NotImplementedError):
+        with pytest.raises(NotImplementedError):
             runner.prepare(MagicMock())
 
     def test_compile_raises_not_implemented(self, runner: DockerRunner):
-        # with pytest.raises(NotImplementedError):
+        with pytest.raises(NotImplementedError):
             runner.compile(MagicMock())
 
     def test_run_testcase_raises_not_implemented(self, runner: DockerRunner):
-        # with pytest.raises(NotImplementedError):
+        with pytest.raises(NotImplementedError):
             runner.run_testcase(MagicMock(), MagicMock(), 1000, 262144)
 
     def test_cleanup_raises_not_implemented(self, runner: DockerRunner):
-        # with pytest.raises(NotImplementedError):
+        with pytest.raises(NotImplementedError):
             runner.cleanup(MagicMock())
 
 
