@@ -4,10 +4,11 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import BottomNavBar, { TabItem } from '../components/BottomNavBar';
+import TopAppBar from '../components/TopAppBar';
 
 const NAV_TABS: TabItem[] = [
   { name: 'Learn', icon: 'school', route: 'Map' },
-  { name: 'Leaderboard', icon: 'leaderboard' },
+  { name: 'Explore', icon: 'explore', route: 'Explore' },
   { name: 'Badges', icon: 'military-tech', route: 'Achievements' },
   { name: 'Profile', icon: 'person', route: 'Progress' },
 ];
@@ -35,22 +36,18 @@ export default function Screen9() {
 
   return (
     <SafeAreaView className="flex-1 bg-surface pb-24">
-      {/* TopAppBar */}
-      <View className="bg-white/90 z-50 shadow-[0_4px_0_0_rgba(28,176,246,0.2)]">
-        <View className="flex-row justify-between items-center px-6 py-4 w-full">
-          <View className="flex-row items-center gap-3">
-            <Pressable className="p-2 rounded-xl active:translate-y-1">
-              <MaterialIcons name="menu" size={24} color="#64748b" />
-            </Pressable>
-            <Text className="text-[#1CB0F6] font-['Fredoka'] font-bold text-2xl tracking-tight">CodeLego</Text>
-          </View>
-          <View className="flex-row items-center gap-2">
+      <View className="shadow-[0_4px_0_0_rgba(28,176,246,0.2)]">
+        <TopAppBar
+          showBrand
+          onMenu={() => {}}
+          className="bg-white/90"
+          rightContent={
             <View className="bg-surface-container px-4 py-2 rounded-full border-b-4 border-surface-container-highest flex-row items-center gap-1">
               <Text className="text-[#1CB0F6] font-bold text-sm">5 🔥 100</Text>
               <MaterialIcons name="favorite" size={14} color="#ef4444" />
             </View>
-          </View>
-        </View>
+          }
+        />
         <View className="bg-slate-100 h-[2px] w-full" />
       </View>
 
@@ -263,41 +260,7 @@ export default function Screen9() {
         </View>
       </ScrollView>
 
-                              {/* BottomNavBar */}
-      <View className="absolute bottom-0 left-0 w-full z-50 flex-row justify-around items-center px-4 pb-6 pt-3 bg-white rounded-t-[2.5rem] border-t-4 border-[#d9eaff]">
-        {/* Nav: Learn */}
-        <Pressable
-          onPress={() => navigation.navigate('Map')}
-          className="flex-col items-center justify-center px-5 py-2 active:scale-95"
-        >
-          <MaterialIcons name="school" size={24} color="#94a3b8" />
-          <Text className="font-label font-bold text-[11px] uppercase tracking-wider mt-1 text-slate-400">Learn</Text>
-        </Pressable>
-        {/* Nav: Explore */}
-        <Pressable
-          onPress={() => navigation.navigate('Explore')}
-          className="flex-col items-center justify-center px-5 py-2 active:scale-95"
-        >
-          <MaterialIcons name="explore" size={24} color="#94a3b8" />
-          <Text className="font-label font-bold text-[11px] uppercase tracking-wider mt-1 text-slate-400">Explore</Text>
-        </Pressable>
-        {/* Nav: Badges */}
-        <Pressable
-          onPress={() => navigation.navigate('Achievements')}
-          className="flex-col items-center justify-center px-5 py-2 bg-[#d9eaff] rounded-2xl transform scale-110"
-        >
-          <MaterialIcons name="military-tech" size={24} color="#1CB0F6" />
-          <Text className="font-label font-bold text-[11px] uppercase tracking-wider mt-1 text-[#1CB0F6]">Badges</Text>
-        </Pressable>
-        {/* Nav: Profile */}
-        <Pressable
-          onPress={() => navigation.navigate('Progress')}
-          className="flex-col items-center justify-center px-5 py-2 active:scale-95"
-        >
-          <MaterialIcons name="person" size={24} color="#94a3b8" />
-          <Text className={`font-label font-bold text-[11px] uppercase tracking-wider mt-1 ${'Badges' === 'Profile' ? 'text-[#1CB0F6]' : 'text-slate-400'}`}>Profile</Text>
-        </Pressable>
-      </View>
+      <BottomNavBar activeTab="Badges" tabs={NAV_TABS} />
     </SafeAreaView>
   );
 }

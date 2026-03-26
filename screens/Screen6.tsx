@@ -5,11 +5,12 @@ import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Path } from 'react-native-svg';
 import BottomNavBar, { TabItem } from '../components/BottomNavBar';
+import TopAppBar from '../components/TopAppBar';
 
 const NAV_TABS: TabItem[] = [
   { name: 'Learn', icon: 'school', route: 'Map' },
   { name: 'Explore', icon: 'explore', route: 'Explore' },
-  { name: 'Shield', icon: 'verified-user' },
+  { name: 'Badges', icon: 'military-tech', route: 'Achievements' },
   { name: 'Profile', icon: 'person', route: 'Progress' },
 ];
 
@@ -37,28 +38,22 @@ export default function Screen6() {
 
   return (
     <SafeAreaView className="flex-1 bg-background pb-24">
-      {/* TopAppBar */}
-      <View className="w-full z-50 bg-white/90 flex-row justify-between items-center px-6 py-4 border-none">
-        <View className="flex-row items-center gap-3">
-          <View className="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center overflow-hidden border-2 border-white">
-            <Image
-              source={{ uri: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAEo3zD1b3eIFDkDwKkaSUpZwnFlFXIihp6zaKs1mSDudz9bN1LXnA061hWFMjFAJMKHMxL5yqK-NNwX4ctLNJO8xJkRvbGW_VhUyRX_msvq4-8m7i0RYcumovQAhhChwPLjbruzNBaRXz1KMcdOb5zXr-G95S52qDOO7tXa53aiRwyf-FXQLSezbXEpqal1_CzQVS2n970kFact9AiQMEIzkdHp4EKlwNC_j1k0Lut6AWdEl61XW_XD_YvAE_jC2GgrjBLT4zxVp4' }}
-              className="w-full h-full"
-            />
-          </View>
-          <Text className="text-[#1CB0F6] font-['Fredoka'] font-black italic text-2xl tracking-tight">CodeQuest</Text>
-        </View>
-        <View className="flex-row items-center gap-4">
-          <View className="flex-row items-center gap-1 bg-surface-container-low px-3 py-1 rounded-full border-b-2 border-error-dim/20">
-            <MaterialIcons name="favorite" size={20} color="#b31b25" />
-            <Text className="font-headline font-bold text-error">5</Text>
-          </View>
-          <View className="flex-row items-center gap-1 bg-surface-container-low px-3 py-1 rounded-full border-b-2 border-tertiary-dim/20">
-            <MaterialIcons name="local-fire-department" size={20} color="#edba00" />
-            <Text className="font-headline font-bold text-tertiary-fixed-dim">12</Text>
-          </View>
-        </View>
-      </View>
+      <TopAppBar
+        showBrand
+        className="bg-white/90"
+        rightContent={
+          <>
+            <View className="flex-row items-center gap-1 bg-surface-container-low px-3 py-1 rounded-full border-b-2 border-error-dim/20">
+              <MaterialIcons name="favorite" size={20} color="#b31b25" />
+              <Text className="font-headline font-bold text-error">5</Text>
+            </View>
+            <View className="flex-row items-center gap-1 bg-surface-container-low px-3 py-1 rounded-full border-b-2 border-tertiary-dim/20">
+              <MaterialIcons name="local-fire-department" size={20} color="#edba00" />
+              <Text className="font-headline font-bold text-tertiary-fixed-dim">12</Text>
+            </View>
+          </>
+        }
+      />
 
       <ScrollView className="flex-1 w-full" contentContainerStyle={{ alignItems: 'center', paddingHorizontal: 16, paddingTop: 24, paddingBottom: 120 }}>
         {/* Unit Header Card */}
@@ -183,41 +178,7 @@ export default function Screen6() {
         </View>
       </ScrollView>
 
-                              {/* BottomNavBar */}
-      <View className="absolute bottom-0 left-0 w-full z-50 flex-row justify-around items-center px-4 pb-6 pt-3 bg-white rounded-t-[2.5rem] border-t-4 border-[#d9eaff]">
-        {/* Nav: Learn */}
-        <Pressable
-          onPress={() => navigation.navigate('Map')}
-          className="flex-col items-center justify-center px-5 py-2 bg-[#d9eaff] rounded-2xl transform scale-110"
-        >
-          <MaterialIcons name="school" size={24} color="#1CB0F6" />
-          <Text className="font-label font-bold text-[11px] uppercase tracking-wider mt-1 text-[#1CB0F6]">Learn</Text>
-        </Pressable>
-        {/* Nav: Explore */}
-        <Pressable
-          onPress={() => navigation.navigate('Explore')}
-          className="flex-col items-center justify-center px-5 py-2 active:scale-95"
-        >
-          <MaterialIcons name="explore" size={24} color="#94a3b8" />
-          <Text className="font-label font-bold text-[11px] uppercase tracking-wider mt-1 text-slate-400">Explore</Text>
-        </Pressable>
-        {/* Nav: Badges */}
-        <Pressable
-          onPress={() => navigation.navigate('Achievements')}
-          className="flex-col items-center justify-center px-5 py-2 active:scale-95"
-        >
-          <MaterialIcons name="military-tech" size={24} color="#94a3b8" />
-          <Text className="font-label font-bold text-[11px] uppercase tracking-wider mt-1 text-slate-400">Badges</Text>
-        </Pressable>
-        {/* Nav: Profile */}
-        <Pressable
-          onPress={() => navigation.navigate('Progress')}
-          className="flex-col items-center justify-center px-5 py-2 active:scale-95"
-        >
-          <MaterialIcons name="person" size={24} color="#94a3b8" />
-          <Text className={`font-label font-bold text-[11px] uppercase tracking-wider mt-1 ${'Learn' === 'Profile' ? 'text-[#1CB0F6]' : 'text-slate-400'}`}>Profile</Text>
-        </Pressable>
-      </View>
+      <BottomNavBar activeTab="Learn" tabs={NAV_TABS} />
     </SafeAreaView>
   );
 }

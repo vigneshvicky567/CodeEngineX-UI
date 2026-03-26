@@ -4,11 +4,12 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import BottomNavBar, { TabItem } from '../components/BottomNavBar';
+import TopAppBar from '../components/TopAppBar';
 
 const NAV_TABS: TabItem[] = [
   { name: 'Learn', icon: 'school', route: 'Map' },
   { name: 'Explore', icon: 'explore', route: 'Explore' },
-  { name: 'Shield', icon: 'verified-user' },
+  { name: 'Badges', icon: 'military-tech', route: 'Achievements' },
   { name: 'Profile', icon: 'person', route: 'Progress' },
 ];
 
@@ -39,21 +40,15 @@ export default function Screen7() {
 
   return (
     <SafeAreaView className="flex-1 bg-surface pb-24">
-      {/* TopAppBar */}
-      <View className="w-full z-50 bg-white/90 flex-row justify-between items-center px-6 py-4 border-none">
-        <View className="flex-row items-center gap-3">
-          <View className="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center overflow-hidden border-2 border-white">
-            <Image
-              source={{ uri: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC2iM6cW64g1yLOSd-faFA37R_rQmSaHJdYlFJqhMFTIMt2jcIVs-O98h-5Rh00abE3oqpCYiwZIzooukNd2ddNPgxkEPmqGRVQrYfKUdoFPo1P9s7TUz6loAUZAoiNZ9IJgpQ78I8PZbYRKFl_qfKTfGazt7lVmKm1SFzjLoZZ3fbPcutfBIJ_u_QMYgNqilwEuMMCJIsV1zTv8hyRNI0pahVe5O0BChXmDBMZQUBjr7LHnagttkWTyB-TpERLj_5yKQ1UlTP80ww' }}
-              className="w-full h-full"
-            />
-          </View>
-          <Text className="text-[#1CB0F6] font-['Fredoka'] font-bold text-2xl tracking-tight italic">CodeQuest</Text>
-        </View>
-        <Pressable className="w-10 h-10 flex items-center justify-center rounded-xl bg-surface-container-high active:translate-y-1">
-          <MaterialIcons name="bolt" size={24} color="#1CB0F6" />
-        </Pressable>
-      </View>
+      <TopAppBar
+        showBrand
+        className="bg-white/90"
+        rightContent={
+          <Pressable className="w-10 h-10 flex items-center justify-center rounded-xl bg-surface-container-high active:translate-y-1">
+            <MaterialIcons name="bolt" size={24} color="#1CB0F6" />
+          </Pressable>
+        }
+      />
 
       <ScrollView className="flex-1 w-full px-6 pt-6 pb-32">
         {/* Search & Filter Section */}
@@ -201,41 +196,7 @@ export default function Screen7() {
         <MaterialIcons name="add" size={32} color="#00324a" />
       </Pressable>
 
-                              {/* BottomNavBar */}
-      <View className="absolute bottom-0 left-0 w-full z-50 flex-row justify-around items-center px-4 pb-6 pt-3 bg-white rounded-t-[2.5rem] border-t-4 border-[#d9eaff]">
-        {/* Nav: Learn */}
-        <Pressable
-          onPress={() => navigation.navigate('Map')}
-          className="flex-col items-center justify-center px-5 py-2 active:scale-95"
-        >
-          <MaterialIcons name="school" size={24} color="#94a3b8" />
-          <Text className="font-label font-bold text-[11px] uppercase tracking-wider mt-1 text-slate-400">Learn</Text>
-        </Pressable>
-        {/* Nav: Explore */}
-        <Pressable
-          onPress={() => navigation.navigate('Explore')}
-          className="flex-col items-center justify-center px-5 py-2 bg-[#d9eaff] rounded-2xl transform scale-110"
-        >
-          <MaterialIcons name="explore" size={24} color="#1CB0F6" />
-          <Text className="font-label font-bold text-[11px] uppercase tracking-wider mt-1 text-[#1CB0F6]">Explore</Text>
-        </Pressable>
-        {/* Nav: Badges */}
-        <Pressable
-          onPress={() => navigation.navigate('Achievements')}
-          className="flex-col items-center justify-center px-5 py-2 active:scale-95"
-        >
-          <MaterialIcons name="military-tech" size={24} color="#94a3b8" />
-          <Text className="font-label font-bold text-[11px] uppercase tracking-wider mt-1 text-slate-400">Badges</Text>
-        </Pressable>
-        {/* Nav: Profile */}
-        <Pressable
-          onPress={() => navigation.navigate('Progress')}
-          className="flex-col items-center justify-center px-5 py-2 active:scale-95"
-        >
-          <MaterialIcons name="person" size={24} color="#94a3b8" />
-          <Text className={`font-label font-bold text-[11px] uppercase tracking-wider mt-1 ${'Explore' === 'Profile' ? 'text-[#1CB0F6]' : 'text-slate-400'}`}>Profile</Text>
-        </Pressable>
-      </View>
+      <BottomNavBar activeTab="Explore" tabs={NAV_TABS} />
     </SafeAreaView>
   );
 }
